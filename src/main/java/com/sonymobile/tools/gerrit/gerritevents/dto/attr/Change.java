@@ -23,6 +23,7 @@
  */
 package com.sonymobile.tools.gerrit.gerritevents.dto.attr;
 
+import com.sonymobile.tools.gerrit.gerritevents.dto.GerritChangeStatus;
 import com.sonymobile.tools.gerrit.gerritevents.dto.GerritJsonDTO;
 
 import net.sf.json.JSONArray;
@@ -47,6 +48,7 @@ import static com.sonymobile.tools.gerrit.gerritevents.dto.GerritEventKeys.SUBJE
 import static com.sonymobile.tools.gerrit.gerritevents.dto.GerritEventKeys.URL;
 import static com.sonymobile.tools.gerrit.gerritevents.dto.GerritEventKeys.CREATED_ON;
 import static com.sonymobile.tools.gerrit.gerritevents.dto.GerritEventKeys.LAST_UPDATED;
+import static com.sonymobile.tools.gerrit.gerritevents.dto.GerritEventKeys.STATUS;
 
 
 /**
@@ -105,6 +107,11 @@ public class Change implements GerritJsonDTO {
 
     private List<Comment> comments;
     /**
+     * The change status.
+     */
+    private GerritChangeStatus status;
+
+    /**
      * Default constructor.
      */
     public Change() {
@@ -143,6 +150,8 @@ public class Change implements GerritJsonDTO {
             commitMessage = getString(json, COMMIT_MESSAGE);
         }
         url = getString(json, URL);
+
+        status = GerritChangeStatus.fromString(getString(json, STATUS));
     }
 
     /**
@@ -167,6 +176,22 @@ public class Change implements GerritJsonDTO {
      */
     public List<Comment> getComments() {
         return comments;
+    }
+
+    /**
+     * Change status.
+     * @return the change status.
+     */
+    public GerritChangeStatus getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the change status.
+     * @param status the status.
+     */
+    public void setStatus(GerritChangeStatus status) {
+        this.status = status;
     }
 
     /**
